@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"os/exec"
+	"runtime"
 
 	"github.com/ZeroBl21/go-ztimer/pomodoro"
 	"github.com/mum4k/termdash/cell"
@@ -47,8 +48,10 @@ func newButtonSet(
 			sum.update(redrawCh)
 
 			// TODO: Make this cross plataform
-			cmd := exec.Command("paplay", "complete.oga")
-			cmd.Run()
+			if runtime.GOOS == "linux" {
+				cmd := exec.Command("paplay", "complete.oga")
+				cmd.Run()
+			}
 		}
 
 		errCh <- i.Start(ctx, config, start, periodic, end)
