@@ -46,6 +46,7 @@ func newButtonSet(
 			wid.update([]int{}, "", "Nothing running...", "", redrawCh)
 			sum.update(redrawCh)
 
+			// TODO: Make this cross plataform
 			cmd := exec.Command("paplay", "complete.oga")
 			cmd.Run()
 		}
