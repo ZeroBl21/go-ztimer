@@ -84,9 +84,9 @@ func initConfig() {
 		home, err := homedir.Dir()
 		cobra.CheckErr(err)
 
-		// Search config in home directory with name ".pomo" (without extension).
+		// Search config in home directory with name ".z-timer" (without extension).
 		viper.AddConfigPath(home)
-		viper.SetConfigName(".pomo")
+		viper.SetConfigName(".ztimer")
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
