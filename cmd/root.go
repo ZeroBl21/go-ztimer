@@ -61,7 +61,7 @@ func Execute() {
 func init() {
 	cobra.OnInitialize(initConfig)
 
-	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.pomo.yaml)")
+	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.ztimer.yaml)")
 
 	rootCmd.Flags().StringP("db", "d", "pomo.db", "Database file")
 	rootCmd.Flags().DurationP("pomo", "p", 25*time.Minute, "Pomodoro duration")
@@ -84,7 +84,7 @@ func initConfig() {
 		home, err := homedir.Dir()
 		cobra.CheckErr(err)
 
-		// Search config in home directory with name ".z-timer" (without extension).
+		// Search config in home directory with name ".ztimer" (without extension).
 		viper.AddConfigPath(home)
 		viper.SetConfigName(".ztimer")
 	}
