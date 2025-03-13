@@ -14,6 +14,7 @@ import (
 type buttonSet struct {
 	btnStart *button.Button
 	btnPause *button.Button
+	btnEnd   *button.Button
 }
 
 func newButtonSet(
@@ -79,6 +80,28 @@ func newButtonSet(
 		wid.update([]int{}, "", "Paused... press start to continue", "", redrawCh)
 	}
 
+	endInterval := func() {
+		i, err := pomodoro.GetInterval(config)
+		if err != nil {
+			errCh <- err
+			return
+		}
+
+		if err := i.End(config); err != nil {
+			if err == pomodoro.ErrIntervalNotRunning {
+				return
+			}
+			errCh <- err
+			return
+		}
+
+		msg := fmt.Sprintf("%s ended early!", i.Category)
+		send_notification(msg)
+
+		wid.update([]int{}, "", "Nothing running...", "", redrawCh)
+		sum.update(redrawCh)
+	}
+
 	btnStart, err := button.New("(S)tart", func() error {
 		go startInterval()
 		return nil
@@ -103,5 +126,17 @@ func newButtonSet(
 		return nil, err
 	}
 
-	return &buttonSet{btnStart, btnPause}, nil
+	btnEnd, err := button.New("(E)nd", func() error {
+		go endInterval()
+		return nil
+	},
+		button.FillColor(cell.ColorRed),
+		button.GlobalKey('e'),
+		button.Height(2),
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return &buttonSet{btnStart, btnPause, btnEnd}, nil
 }

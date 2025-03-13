@@ -55,10 +55,13 @@ func newGrid(
 	// Add second row
 	builder.Add(
 		grid.RowHeightPerc(10,
-			grid.ColWidthPerc(50,
+			grid.ColWidthPerc(33,
 				grid.Widget(btnSet.btnStart),
 			),
-			grid.ColWidthPerc(50,
+			grid.ColWidthPerc(33,
+				grid.Widget(btnSet.btnEnd),
+			),
+			grid.ColWidthPerc(33,
 				grid.Widget(btnSet.btnPause),
 			),
 		),
