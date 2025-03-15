@@ -92,7 +92,7 @@ func TestGetInterval(t *testing.T) {
 			expCategory = pomodoro.CategoryPomodoro
 			expDuration = 3 * duration
 
-		case i%8 == 0:
+		case i%6 == 0:
 			expCategory = pomodoro.CategoryLongBreak
 			expDuration = 2 * duration
 

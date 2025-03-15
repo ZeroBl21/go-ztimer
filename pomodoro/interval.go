@@ -52,12 +52,12 @@ func nextCategory(r Repository) (string, error) {
 		return CategoryPomodoro, nil
 	}
 
-	lastBreaks, err := r.Breaks(3)
+	lastBreaks, err := r.Breaks(2)
 	if err != nil {
 		return "", err
 	}
 
-	if len(lastBreaks) < 3 {
+	if len(lastBreaks) < 2 {
 		return CategoryShortBreak, nil
 	}
 
