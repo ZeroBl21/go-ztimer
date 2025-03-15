@@ -185,7 +185,6 @@ func tick(
 	}
 
 	expire := time.After(i.PlannedDuration - i.ActualDuration)
-	endCh := make(chan struct{})
 
 	start(i)
 
@@ -202,8 +201,14 @@ func tick(
 			}
 
 			if i.State == StateDone {
-				close(endCh)
-				continue
+				i, err := config.repo.ByID(id)
+				if err != nil {
+					return err
+				}
+
+				end(i)
+
+				return config.repo.Update(i)
 			}
 
 			i.ActualDuration += time.Second
@@ -213,16 +218,6 @@ func tick(
 			}
 
 			periodic(i)
-
-		case <-endCh:
-			i, err := config.repo.ByID(id)
-			if err != nil {
-				return err
-			}
-
-			end(i)
-
-			return config.repo.Update(i)
 
 		case <-expire:
 			i, err := config.repo.ByID(id)
