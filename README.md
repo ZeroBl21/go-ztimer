@@ -14,7 +14,7 @@ A TUI Pomodoro app that tracks your time spent on pomodoros and breaks. It suppo
 ## Installation
 ```sh
 # Clone the repository
-git clone https://github.com/yourusername/go-ztimer.git
+git clone https://github.com/zerobl21/go-ztimer.git
 cd go-ztimer
 
 # Build the project
